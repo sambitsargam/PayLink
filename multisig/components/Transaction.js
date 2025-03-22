@@ -262,7 +262,7 @@ const Transaction = (props) => {
     const provider = await web3ModalRef.current.connect();
     const web3Provider = new providers.Web3Provider(provider);
     const { chainId } = await web3Provider.getNetwork();
-    if (chainId !== 5001) {
+    if (chainId !== 5003) {
       window.alert("Change the network to Mantle Network");
       throw new Error("Change network to Mantle Network");
     }

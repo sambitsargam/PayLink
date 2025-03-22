@@ -18,10 +18,7 @@ const Footer = () => {
       >
         <Container maxWidth="sm">
           <Typography align="center" variant="body1">
-            Made with ❤ by{" "}
-            <Link href="https://twitter.com/crypto063" underline="hover">
-              rukmani
-            </Link>
+            Made with ❤ by 0xSambit
           </Typography>
           {/* <Copyright /> */}
         </Container>

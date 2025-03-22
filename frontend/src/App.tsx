@@ -107,7 +107,7 @@ function App() {
         )}
         {activeTab === 'multisig' && (
           <div className="h-full">
-            <iframe src="http://localhost:3001" className="w-full h-full" />
+            <iframe src="http://localhost:3000" className="w-full h-full" />
           </div>
         )}
       </div>
