@@ -23,7 +23,7 @@ export const Contacts: React.FC<ContactsProps> = ({ contacts, onContactAdded, on
             name: newContact.name,
             address: newContact.address,
             email: newContact.email,
-            user_id: (await supabase.auth.getUser()).data.user?.id
+          //  user_id: (await supabase.auth.getUser()).data.user?.id
           }])
           .select()
           .single();

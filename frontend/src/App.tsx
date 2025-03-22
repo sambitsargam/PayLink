@@ -102,7 +102,7 @@ function App() {
         {activeTab === 'settings' && <SettingsComponent />}
         {activeTab === 'feed' && (
           <div className="h-full">
-            <iframe src="http://localhost:3000" className="w-full h-full" />
+            <iframe src="http://localhost:5173" className="w-full h-full" />
           </div>
         )}
         {activeTab === 'multisig' && (
