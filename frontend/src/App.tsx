@@ -6,6 +6,7 @@ import { Landing } from './components/Landing';
 import { Dashboard } from './components/Dashboard';
 import { Contacts } from './components/Contacts';
 import { Settings as SettingsComponent } from './components/Settings';
+import { ethers } from 'ethers';
 
 type Tab = 'dashboard' | 'contacts' | 'feed' | 'multisig' | 'settings';
 
@@ -50,14 +51,43 @@ function App() {
     }
   };
 
+
+
   const handleSend = async (contact?: Contact) => {
     if (!contact) {
       alert('Please select a contact to send money to from the list below.');
       return;
     }
   
-    alert(`Sending money to ${contact.name} (${contact.address})`);
+    const amount = prompt(`How much MNT would you like to send to ${contact.name}?`);
+    if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
+      alert('Please enter a valid positive amount.');
+      return;
+    }
+  
+    try {
+      if (!window.ethereum) {
+        alert('MetaMask is not available. Please install it.');
+        return;
+      }
+  
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+  
+      const tx = await signer.sendTransaction({
+        to: contact.address,
+        value: ethers.parseEther(amount), // Converts MNT to correct unit
+      });
+  
+      alert(`Transaction sent! Hash:\n${tx.hash}`);
+      await tx.wait();
+      alert('Transaction confirmed!');
+    } catch (error: any) {
+      console.error('Transaction failed:', error);
+      alert(`Failed to send MNT: ${error?.message || 'Unknown error'}`);
+    }
   };
+  
   
 
   const SidebarItem = ({ icon: Icon, label, tab }: { icon: any, label: string, tab: Tab }) => (
