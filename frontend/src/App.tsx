@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Home, Users, Newspaper, Wallet2, Settings } from 'lucide-react';
 import { supabase } from './lib/supabase';
 import { Contact } from './types';
@@ -50,11 +50,15 @@ function App() {
     }
   };
 
-  const handleSend = async (contact: Contact) => {
-    // Here you would implement the send money functionality
-    // For now, we'll just show an alert
+  const handleSend = async (contact?: Contact) => {
+    if (!contact) {
+      alert('Please select a contact to send money to from the list below.');
+      return;
+    }
+  
     alert(`Sending money to ${contact.name} (${contact.address})`);
   };
+  
 
   const SidebarItem = ({ icon: Icon, label, tab }: { icon: any, label: string, tab: Tab }) => (
     <button
@@ -70,6 +74,10 @@ function App() {
 
   if (!isConnected) {
     return <Landing onConnect={connectWallet} />;
+  }
+
+  function handleDeposit(): void {
+    throw new Error('Function not implemented.');
   }
 
   return (
@@ -91,7 +99,14 @@ function App() {
 
       {/* Main Content */}
       <div className="flex-1 overflow-auto">
-        {activeTab === 'dashboard' && <Dashboard contacts={contacts} onSend={handleSend} />}
+      {activeTab === 'dashboard' && (
+  <Dashboard 
+    contacts={contacts} 
+    onSend={handleSend}
+   // onDeposit={handleDeposit}
+  />
+)}
+
         {activeTab === 'contacts' && (
           <Contacts 
             contacts={contacts} 
