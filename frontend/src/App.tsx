@@ -147,7 +147,7 @@ function App() {
         {activeTab === 'settings' && <SettingsComponent />}
         {activeTab === 'feed' && (
           <div className="h-full">
-            <iframe src="http://localhost:5173" className="w-full h-full" />
+            <iframe src="https://paylink-feed.vercel.app/read" className="w-full h-full" />
           </div>
         )}
         {activeTab === 'multisig' && (
