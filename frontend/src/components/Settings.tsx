@@ -12,7 +12,7 @@ export const Settings: React.FC = () => (
           </label>
           <input
             type="tel"
-            defaultValue="5654567778"
+            defaultValue="+14155238886"
             className="w-full px-4 py-2 border rounded-lg"
           />
         </div>
@@ -23,7 +23,7 @@ export const Settings: React.FC = () => (
           </label>
           <input
             type="tel"
-            defaultValue="6675677757"
+            defaultValue="+14066306818"
             className="w-full px-4 py-2 border rounded-lg"
           />
         </div>
