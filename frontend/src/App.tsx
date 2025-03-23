@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Home, Users, Newspaper, Wallet2, Settings } from 'lucide-react';
+import { Home, Users, Newspaper, Wallet2, Settings , Bell} from 'lucide-react';
 import { supabase } from './lib/supabase';
 import { Contact } from './types';
 import { Landing } from './components/Landing';
 import { Dashboard } from './components/Dashboard';
 import { Contacts } from './components/Contacts';
 import { Settings as SettingsComponent } from './components/Settings';
+import { Alert } from './components/PolkaNotifier';
 import { ethers } from 'ethers';
 
-type Tab = 'dashboard' | 'contacts' | 'feed' | 'multisig' | 'settings';
+type Tab = 'dashboard' | 'contacts' | 'feed' | 'multisig' | 'settings' | 'alert';
 
 function App() {
   const [isConnected, setIsConnected] = useState(false);
@@ -124,6 +125,7 @@ function App() {
           <SidebarItem icon={Newspaper} label="Feed" tab="feed" />
           <SidebarItem icon={Wallet2} label="Multisig Wallet" tab="multisig" />
           <SidebarItem icon={Settings} label="Settings" tab="settings" />
+          <SidebarItem icon={Bell} label="Alert" tab="alert" />
         </nav>
       </div>
 
@@ -145,6 +147,7 @@ function App() {
           />
         )}
         {activeTab === 'settings' && <SettingsComponent />}
+        {activeTab === 'alert' && <Alert />}
         {activeTab === 'feed' && (
           <div className="h-full">
             <iframe src="https://paylink-feed.vercel.app/read" className="w-full h-full" />
