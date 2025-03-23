@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { IDKitWidget } from '@worldcoin/idkit';
 import { ArrowRight, Shield, Users, MessageSquare, Wallet } from 'lucide-react';
 
 interface LandingProps {
@@ -6,17 +7,46 @@ interface LandingProps {
 }
 
 export const Landing: React.FC<LandingProps> = ({ onConnect }) => {
+  // Track if the user has passed the World ID verification.
+  const [verified, setVerified] = useState(false);
+
+  // Called when the verification is successful.
+  const handleVerificationSuccess = (result: any) => {
+    console.log('Verification successful:', result);
+    setVerified(true);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
       <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold text-indigo-700">PayLink</h1>
-        <button
-          onClick={onConnect}
-          className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors flex items-center space-x-2 group"
-        >
-          <span>Connect Wallet</span>
-          <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
-        </button>
+        {/* Show Connect Wallet if verified, otherwise show the World ID verification button */}
+        {verified ? (
+          <button
+            onClick={onConnect}
+            className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors flex items-center space-x-2 group"
+          >
+            <span>Connect Wallet</span>
+            <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
+          </button>
+        ) : (
+          <IDKitWidget
+            app_id="app_staging_6b189046f977f2a3384efa1f350e4c43" // Your app id from the Developer Portal
+            action="vote_1" // Your action name from the Developer Portal
+            signal="user_value" // Arbitrary value or user identifier
+            onSuccess={handleVerificationSuccess}
+          //  verification_level="device" // Minimum verification level (defaults to "orb")
+          >
+            {({ open }) => (
+              <button
+                onClick={open}
+                className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors flex items-center space-x-2 group"
+              >
+                <span>Verify with World ID</span>
+              </button>
+            )}
+          </IDKitWidget>
+        )}
       </nav>
       
       <main className="container mx-auto px-6">
@@ -29,12 +59,15 @@ export const Landing: React.FC<LandingProps> = ({ onConnect }) => {
             Send crypto seamlessly with AI-powered assistance and enhanced security features.
           </p>
           
-          <button
-            onClick={onConnect}
-            className="bg-indigo-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-          >
-            Get Started Now
-          </button>
+          {/* Only allow "Get Started Now" if the user is verified */}
+          {verified && (
+            <button
+              onClick={onConnect}
+              className="bg-indigo-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
+              Get Started Now
+            </button>
+          )}
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-20">
