@@ -1,13 +1,14 @@
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const twilio = require('twilio');
+require('dotenv').config();
 
 // --- Configuration for Email --- //
 const transporter = nodemailer.createTransport({
   service: 'gmail', // or your preferred email service
   auth: {
-    user: process.env.USER,
-    pass: process.env.PASS         // replace with your email password or app-specific password
+    user: "nistcloudcomputingclub@gmail.com",
+    pass: "cpleberioysyjhux"         // replace with your email password or app-specific password
   }
 });
 const emailRecipient = process.env.EMAIL; // recipient email address
@@ -25,7 +26,7 @@ const fetchData = () => {
     method: 'get',
     maxBodyLength: Infinity,
     url: 'https://api.polkassembly.io/api/v1/listing/off-chain-posts?page=1&listingLimit=10&proposalType=discussions',
-    headers: { 
+    headers: {
       'x-network': 'polkadot'
     }
   };

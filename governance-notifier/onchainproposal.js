@@ -1,6 +1,7 @@
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const twilio = require('twilio');
+require('dotenv').config();
 
 // --- Configuration for Email --- //
 const transporter = nodemailer.createTransport({
