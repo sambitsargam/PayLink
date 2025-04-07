@@ -1,4 +1,4 @@
-# PayLink 🚀
+# PayLink 🚀 ( In demo some of features are disabled )
 
 > *Your all-in-one solution for seamless, secure, and smart blockchain interactions.*
 
